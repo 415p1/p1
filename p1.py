@@ -1,4 +1,4 @@
-
+# David Tauraso and Erich Bucher
 
 # all the computations for HW 1 shall be done using binary arithmetic
 # only the user input and the final output will be in decimal.
