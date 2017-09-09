@@ -50,7 +50,7 @@ class Tests(unittest.TestCase):
             print("    Finished test. Time taken: ", end - start)
         print("Finished problem1Calc tests.")
     '''
-    
+    '''
     def test_problem2Calc(self):
         print("Running problem2Calc tests.")
         for i in range(0, 10):
@@ -69,7 +69,26 @@ class Tests(unittest.TestCase):
             
             print("    Finished test. Time taken: ", end - start)
         print("Finished problem1Calc tests.")
-    
+    '''
+    '''
+    def test_problem3Calc(self):
+        #If you run this code, you have to manually verify the results yourself.
+        print("Running problem3Calc tests.")
+        for a in range(1, 10):
+            start = time.time()
+            (numerator, denominator) = problem3Calc(a)
+            result = numerator / denominator
+            end = time.time()
+            print("Got a numerator of ", numerator, " and a denominator of ", denominator)
+            actualResult = 0
+            for i in range(1, a + 1):
+                actualResult = actualResult + (1.0/i)
+                
+            self.assertTrue(True)
+            
+            print("    Finished test i = ", i, ". Time taken: ", end - start)
+        print("Finished problem1Calc tests.")
+    '''
 
             
 

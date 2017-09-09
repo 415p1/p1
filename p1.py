@@ -45,7 +45,8 @@ def shift(A, n):
     if n == 0:
         return A
     return [0] + shift(A, n-1)
-    
+
+   
 def mult(X, Y):
     # mutiplies two arrays of binary numbers
     # with LSB stored in index 0
@@ -59,11 +60,13 @@ def mult(X, Y):
     else:
         return add(X, add(Z, Z))
 
+
 def Mult(X, Y):
 
     X1 = dec2bin(X)
     Y1 = dec2bin(Y)
     return bin2dec(mult(X1,Y1))
+
 
 def zero(X):
     # test if the input binary number is 0
@@ -76,11 +79,13 @@ def zero(X):
                 return False
     return True
 
+
 def div2(Y):
     if len(Y) == 0:
         return Y
     else:
         return Y[1:]
+
 
 def even(X):
     if ((len(X) == 0) or (X[0] == 0)):
@@ -111,17 +116,21 @@ def add(A, B):
         C.append(carry)
     return C
 
+
 def Add(A,B):
     return bin2dec(add(dec2bin(A), dec2bin(B)))
 
+
 def exc_or(a, b, c):
     return (a ^ (b ^ c))
+
 
 def nextcarry(a, b, c):
     if ((a & b) | (b & c) | (c & a)):
         return 1
     else:
         return 0 
+
         
 def bin2dec(A):
     if len(A) == 0:
@@ -133,9 +142,11 @@ def bin2dec(A):
         pow = pow * 2
     return val
 
+
 def reverse(A):
     B = A[::-1]
     return B
+
 
 def trim(A):
     if len(A) == 0:
@@ -162,8 +173,10 @@ def compare(A, B):
                 return 2
         return 0
 
+
 def Compare(A, B):
     return bin2dec(compare(dec2bin(A), dec2bin(B)))
+
 
 def dec2bin(n):
     # creates binary number in reverse
@@ -179,6 +192,7 @@ def dec2bin(n):
     fbit = n % 2
     #print([fbit] + A)
     return [fbit] + A
+
 
 def map(v):
     if v==[]:
@@ -203,6 +217,7 @@ def map(v):
         return '8'
     elif v == [1,0,0,1]:
         return '9'   
+
         
 def bin2dec1(n):
     if len(n) <= 3:
@@ -210,6 +225,7 @@ def bin2dec1(n):
     else:
         temp1, temp2 = divide(n, [0,1,0,1])
         return bin2dec1(trim(temp1)) + map(trim(temp2))
+
 
 def pad(X, Y):
     X1 = X[:]
@@ -255,9 +271,11 @@ def divide(X, Y):
 
     return (q,r)
 
+
 def Divide(X, Y):
     (q,r) = divide(dec2bin(X), dec2bin(Y))
     return (bin2dec(q), bin2dec(r))
+
 
 def twosComplement(X):
     # X is a number that is already in twos complement (so positive numbers
@@ -266,6 +284,7 @@ def twosComplement(X):
     X1 = flipBits(X)
     X1 = add(X1, [1])
     return X1
+
 
 def twosComp2Dec(X):
     # Given a reversed bitstring that is stored in two's complement, the
@@ -287,7 +306,6 @@ def subtract(X, Y):
     return twosComp2Dec(sub(X1, Y1))
     
 
-
 def sub(X, Y):
     # X and Y are positive, binary numbers
     # The result is the binary representation of X - Y in twos complement.
@@ -304,7 +322,6 @@ def sub(X, Y):
     
     return result
     
-    
 
 def exp(X, Y):
     # Takes in two reversed binary strings and returns
@@ -318,15 +335,13 @@ def exp(X, Y):
     else:
         return mult(X, mult(z, z))
 
+
 def gcd(X, Y):
     if zero(Y):
         return X
     (q, r) = divide(X, Y)
     return gcd(Y, r)
 
-# problem 1
-    # if know result will be a negative then print the negative sign
-    # with the number
 
 def problem1():
     print("Enter values for A, B, C, and D, which can be used to calculate A^B - C^D")
@@ -338,6 +353,7 @@ def problem1():
     result = problem1Calc(A, B, C, D)
     print("Result: ", result, "\n")
 
+
 def problem1Calc(A, B, C, D):
     # A, B, C, and D should all be positive decimal values.
     # The result will be returned as a decimal value.
@@ -346,7 +362,6 @@ def problem1Calc(A, B, C, D):
     difference =  twosComp2Dec(sub(firstHalf, secondHalf))
     return difference
     
-
 
 def problem2():
     print("Enter values for A, B, C, and D, which can be used to calculate A^B / C^D")
@@ -373,40 +388,35 @@ def problem3():
     print("Enter a value A to calculate 1/1 + 1/2 + 1/3 +... 1/A")
     A = int(input("A: "))
 
-    result = problem3Calc(A)
-    print("The sum is ", result)
+    (numerator, denominator) = problem3Calc(A)
+    print("The sum is ", numerator, "/", denominator, "\n")
 
-def problem3Old(N):
 
+def problem3Calc(N):
+    # Given N, the function will return the sum of 1/1 + 1/2 + 1/3...+ 1/N
+    # in decimal.
     (n, d) = ([0], [1])
-    #print(n, d)
-    #exit()
+    
     for i in range(1, N + 1):
         (n, d) = addSum(n, d, [1], dec2bin(i))
-        #print(bin2dec(n))
-        #print(bin2dec(d))
-        #print()
-    print(bin2dec(n))
-    print(bin2dec(d))
-        #exit()
+        
+    return (bin2dec(n), bin2dec(d))
+
 
 def addSum(n1, d1, n2, d2):
     N = add(mult(n1, d2), mult(n2, d1))
     D = mult(d1, d2)
-    #print(bin2dec(N))
-    #print(bin2dec(D))
+
     (N1, D1) = reduceFraction(N, D)
-    #print(N1)
-    #exit()
+
     return (N1, D1)#reduceFraction(N, D)
 
+
 def reduceFraction(N, D):
-    #print("reduceFraction")
     x = gcd(N, D)
     (N1, R1) = divide(N, x)
-    #print(bin2dec(R1))
     (D1, R2) = divide(D, x)
-    #print(bin2dec(R2))
+    
     return (N1, D1)
 
 
@@ -430,6 +440,6 @@ def main():
             moreInput = False
         else:
             print("Unknown input.")
-'''
+
 main()
-'''
+
